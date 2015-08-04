@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8">
@@ -145,12 +145,12 @@
             // topic：通道
             // commond：指令
             client.publish = function(topic, commond) {
-                console.log("现在执行-->:"+commond);
+                // console.log("现在执行-->:"+commond);
                 message = new Paho.MQTT.Message(commond);
                 message.destinationName = topic;
                 client.send(message);
             }
-             console.log("device_id:"+device_id);
+            // console.log("device_id:"+device_id);
             console.log("onConnect");
             client.subscribe(subtopic, {qos: 0});
         }
@@ -163,17 +163,17 @@
         // var msgindex = 1;
         var msgjson;
         function onMessageArrived(message) {
-             console.log(message.topic + ': ' +  message.payloadString);
+            // console.log(message.topic + ': ' +  message.payloadString);
             // if(msgindex > 12 ){
             //     msgindex =1;
             //     document.getElementById('debug').innerHTML = "";
             // }
             // msgindex++;
-             console.log('设备上报:' +  message.payloadString);
+            // console.log('设备上报:' +  message.payloadString);
             msgjson = $.parseJSON(message.payloadString);
-             console.log('温度 ' +  msgjson.dht11_temperature);
+            // console.log('温度 ' +  msgjson.dht11_temperature);
             var tempval = msgjson.dht11_temperature;
-             console.log('温度2 ' +  tempval);
+            // console.log('温度2 ' +  tempval);
             if("undefined" != typeof(tempval)){
                 // 显示温度
                 $("#tempid").text(tempval+"℃");
@@ -230,26 +230,26 @@
     }
 
     // 日志打印在页面的部分    
-     var i = 0;
-     console.log = (function(old_funct, div_log) {
-         return function(text) {
-             old_funct(text);
-             var p = '';
-             if (i%2 == 0)
-                 p = '<p>';
-             else
-                 p = '<p class=\'gray\'>';
-   
-             if (typeof text === "object")
-                 div_log.innerHTML += p + JSON.stringify(text) + '</p>';
-             else
-                 div_log.innerHTML += p + text + '</p>';
+    // var i = 0;
+    // console.log = (function(old_funct, div_log) {
+    //     return function(text) {
+    //         old_funct(text);
+    //         var p = '';
+    //         if (i%2 == 0)
+    //             p = '<p>';
+    //         else
+    //             p = '<p class=\'gray\'>';
 
-             div_log.scrollTop = div_log.scrollHeight;
-             i += 1;
-         };
-     } (console.log.bind(console), document.getElementById("debug")));
-     console.error = console.debug = console.info =  console.log;
+    //         if (typeof text === "object")
+    //             div_log.innerHTML += p + JSON.stringify(text) + '</p>';
+    //         else
+    //             div_log.innerHTML += p + text + '</p>';
+
+    //         div_log.scrollTop = div_log.scrollHeight;
+    //         i += 1;
+    //     };
+    // } (console.log.bind(console), document.getElementById("debug")));
+    // console.error = console.debug = console.info =  console.log;
 
 </script>
 </body>
